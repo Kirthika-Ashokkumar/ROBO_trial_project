@@ -12,6 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include "hardware_map.hpp"
+#include "resource_list.hpp"
+#include <exception>
+#include <libhal-util/serial.hpp>
+#include <libhal/error.hpp>
+
 #include <libhal/error.hpp>
 #include "hardware_map.hpp"
 
@@ -26,4 +32,3 @@ int main(){
   sjsu::trial_project::application(hardware_map);
   return 0;
 }
-

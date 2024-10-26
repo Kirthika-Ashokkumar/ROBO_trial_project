@@ -50,3 +50,4 @@ conan build . -pr mod-stm32f1-v4 -pr arm-gcc-12.3
 
 See our [`ARCHITECTURE.md`](./ARCHITECTURE.md) to learn about the important
 files in the project, what they do, and quirks about how they work.
+
