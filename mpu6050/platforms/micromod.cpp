@@ -18,7 +18,6 @@
 #include <libhal-arm-mcu/stm32f1/output_pin.hpp>
 #include <libhal-expander/pca9685.hpp>
 #include <libhal-micromod/micromod.hpp>
-#include <libhal-soft/bit_bang_i2c.hpp>
 #include <libhal-soft/rc_servo.hpp>
 #include <libhal-util/math.hpp>
 #include <libhal-util/serial.hpp>
@@ -71,8 +70,8 @@ hardware_map_t initialize_platform()
   static auto& terminal = hal::micromod::v1::console(hal::buffer<1024>);
   hal::print(terminal, "created terminal and counter\n");
 
-  //   static auto& pin0 = hal::micromod::v1::output_g0();
-  //   static auto& pin1 = hal::micromod::v1::output_g1();
+    // static auto& pin0 = hal::micromod::v1::output_g0();
+    // static auto& pin1 = hal::micromod::v1::output_g1();
   //   static auto& pin2 = hal::micromod::v1::output_g2();
   //   static auto& pin3 = hal::micromod::v1::output_g3();
 
@@ -80,37 +79,37 @@ hardware_map_t initialize_platform()
   static auto& sda = hal::micromod::v1::output_g0();
   hal::print(terminal, "created g0 and g1\n");
 
-  static hal::soft::bit_bang_i2c bit_bang_i2c({ .sda = &sda, .scl = &scl },
-                                              counter);
-  hal::print(terminal, "created i2c\n");
+  // static hal::soft::bit_bang_i2c bit_bang_i2c({ .sda = &sda, .scl = &scl },
+  //                                             counter);
+  // hal::print(terminal, "created i2c\n");
 
-  static hal::expander::pca9685 pca9685(bit_bang_i2c, 0b100'0000);
-  static auto pwm0 = pca9685.get_pwm_channel<0>();
-  hal::print(terminal, "created pca and got pwm\n");
+  // static hal::expander::pca9685 pca9685(bit_bang_i2c, 0b100'0000);
+  // static auto pwm0 = pca9685.get_pwm_channel<0>();
+  // hal::print(terminal, "created pca and got pwm\n");
 
-  hal::actuator::rc_servo::settings rc_servo_settings{
-    .frequency = 50,
-    // Total 180 deg, change for your use case.
-    .min_angle = -90,
-    .max_angle = 90,
-    // Change to 500us and 2500us if your rc servo
-    // supports those pulse widths.
-    .min_microseconds = 1000,
-    .max_microseconds = 2000,
-  };
+  // hal::actuator::rc_servo::settings rc_servo_settings{
+  //   .frequency = 50,
+  //   // Total 180 deg, change for your use case.
+  //   .min_angle = -90,
+  //   .max_angle = 90,
+  //   // Change to 500us and 2500us if your rc servo
+  //   // supports those pulse widths.
+  //   .min_microseconds = 1000,
+  //   .max_microseconds = 2000,
+  // };
 
-  static hal::actuator::rc_servo servo(pwm0, rc_servo_settings);
-  hal::print(terminal, "created servo\n");
+  // static hal::actuator::rc_servo servo(pwm0, rc_servo_settings);
+  // hal::print(terminal, "created servo\n");
 
   return hardware_map_t{
     .steady_clock = &counter,
     .terminal = &terminal,
-    // .pin0 = &pin0,
-    // .pin1 = &pin1,
+    .pin0 = &sda,
+    .pin1 = &scl,
     // .pin2 = &pin2,
     // .pin3 = &pin3,
-    .bit_bang_i2c = &bit_bang_i2c,
-    .servo = &servo,
+    // .bit_bang_i2c = &bit_bang_i2c,
+    // .servo = &servo,
     // .scl = &scl,
     // .sda = &sda,
 

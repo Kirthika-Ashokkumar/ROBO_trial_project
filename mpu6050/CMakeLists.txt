@@ -8,14 +8,14 @@ libhal_build_demos(
 
     PACKAGES
     libhal-util
-    libhal-soft
+    # libhal-soft
     libhal-expander
     libhal-actuator
 
 
     LINK_LIBRARIES
     libhal::util
-    libhal::soft
+    # libhal::soft
     libhal::expander
     libhal::actuator
 
